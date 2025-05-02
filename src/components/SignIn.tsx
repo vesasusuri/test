@@ -1,11 +1,22 @@
-
 import React from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -24,7 +35,7 @@ type SignInProps = {
 
 const SignIn: React.FC<SignInProps> = ({ isOpen, onClose, onSignIn }) => {
   const { toast } = useToast();
-  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,22 +47,24 @@ const SignIn: React.FC<SignInProps> = ({ isOpen, onClose, onSignIn }) => {
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     onSignIn(values);
     toast({
-      title: "Sign In Successful",
-      description: "Welcome back to MatchFuture!",
+      title: "Signed in successfully",
+      description: "Welcome back to UMatch!",
     });
     onClose();
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-[#FAF8F6] rounded-lg">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-future-dark">Welcome Back</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-2xl font-bold text-[#2F2F2F]">
+            Welcome Back
+          </DialogTitle>
+          <DialogDescription className="text-[#4C5A72]">
             Sign in to your account to continue your journey
           </DialogDescription>
         </DialogHeader>
-        
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
             <FormField
@@ -59,12 +72,12 @@ const SignIn: React.FC<SignInProps> = ({ isOpen, onClose, onSignIn }) => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="text-[#2F2F2F]">Email</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <User className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <User className="absolute left-3 top-3 h-4 w-4 text-[#4C5A72]" />
                       <Input
-                        className="pl-9"
+                        className="pl-10 bg-white border border-[#D86D70] rounded-md"
                         placeholder="your.email@example.com"
                         {...field}
                       />
@@ -74,19 +87,19 @@ const SignIn: React.FC<SignInProps> = ({ isOpen, onClose, onSignIn }) => {
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel className="text-[#2F2F2F]">Password</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <KeyRound className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <KeyRound className="absolute left-3 top-3 h-4 w-4 text-[#4C5A72]" />
                       <Input
-                        className="pl-9"
                         type="password"
+                        className="pl-10 bg-white border border-[#D86D70] rounded-md"
                         placeholder="••••••••"
                         {...field}
                       />
@@ -96,27 +109,30 @@ const SignIn: React.FC<SignInProps> = ({ isOpen, onClose, onSignIn }) => {
                 </FormItem>
               )}
             />
-            
-            <div className="flex justify-between items-center mt-2">
-              <Button type="button" variant="link" className="text-sm p-0 h-auto">
+
+            <div className="flex justify-between items-center">
+              <Button type="button" variant="link" className="text-sm text-[#9F262A] p-0 h-auto">
                 Forgot password?
               </Button>
-              <div className="space-x-2">
+              <div className="flex space-x-2">
                 <Button type="button" variant="outline" onClick={onClose}>
                   Cancel
                 </Button>
-                <Button type="submit" className="bg-future-primary hover:bg-future-tertiary">
+                <Button
+                  type="submit"
+                  className="bg-[#9F262A] hover:bg-[#D86D70] text-white"
+                >
                   Sign In
                 </Button>
               </div>
             </div>
           </form>
         </Form>
-        
+
         <div className="mt-4 pt-4 border-t text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-[#4C5A72]">
             Don't have an account?{" "}
-            <Button variant="link" className="p-0 h-auto">
+            <Button variant="link" className="text-[#9F262A] p-0 h-auto">
               Create one
             </Button>
           </p>
