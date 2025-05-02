@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    --background: 260 60% 98%; /* Light purple background */
+    --background: ; /* Light purple background */
     --foreground: 222 84% 5%;
 
     --card: 0 0% 100%;
@@ -35,6 +35,10 @@
 
     --radius: 0.75rem;
   }
+}
+
+body{
+  background-color: rgb(255, 247, 239);
 }
 
 @layer base {
