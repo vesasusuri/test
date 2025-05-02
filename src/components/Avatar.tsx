@@ -1,7 +1,8 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+
+import myVideo from "../assets/home/waving.mp4";
 
 type AvatarProps = {
   onContinue: () => void;
@@ -31,18 +32,32 @@ const Avatar: React.FC<AvatarProps> = ({ onContinue, className }) => {
 
   return (
     <div className={cn("flex flex-col items-center", className)}>
-      <div className="avatar-container w-32 h-32 md:w-40 md:h-40 animate-float mb-6">
-        <img
-          src="https://api.dicebear.com/7.x/adventurer/svg?seed=Maya&hair=short16&hairColor=d2c3a4,80523b,c79282,dbd7d2&eyes=variant15&mouth=variant20"
-          alt="Avatar Guide"
-          className="w-full h-full object-cover"
-        />
+      {/* SVG mask-based video crop */}
+      <div className="w-48 md:w-60 h-60 mb-6 relative animate-float">
+        <svg width="100%" height="100%" viewBox="0 0 240 240" preserveAspectRatio="xMidYMid meet" className="absolute top-0 left-0 z-10">
+          <defs>
+            <clipPath id="bottomClip" clipPathUnits="userSpaceOnUse">
+              <rect x="0" y="0" width="240" height="120" />
+              <circle cx="120" cy="120" r="120" />
+            </clipPath>
+          </defs>
+          <foreignObject width="240" height="340" clipPath="url(#bottomClip)">
+            <video
+              src={myVideo}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          </foreignObject>
+        </svg>
       </div>
-      
+
       <div className="bg-white p-4 rounded-2xl shadow-md max-w-md mb-6 animate-slide-up">
         <p className="text-lg">{message}</p>
       </div>
-      
+
       <Button 
         onClick={handleNextMessage} 
         className="bg-future-primary hover:bg-future-tertiary text-white px-6 py-2 rounded-full animate-pulse-light"
