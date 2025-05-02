@@ -111,7 +111,7 @@ const Universities: React.FC = () => {
       
       <main className="flex-grow container mx-auto px-4 py-8">
         <h1 className="text-3xl md:text-4xl font-bold text-future-dark text-center mb-2">
-          Explore <span className="text-future-primary">Universities</span> in Albania
+          Explore <span className="text-[#9F262A]">Universities</span> in Albania
         </h1>
         <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
           Discover the best educational institutions and find the perfect match for your future studies
