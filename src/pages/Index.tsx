@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Avatar from '@/components/Avatar';
@@ -8,6 +7,7 @@ import CareerPathway from '@/components/CareerPathway';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import logo from '../assets/navbar/umatch-logo.png';
 
 enum Step {
   WELCOME,
@@ -32,10 +32,10 @@ const Index = () => {
       <main className="flex-grow">
         {currentStep === Step.WELCOME && (
           <div className="container mx-auto px-4 py-12 md:py-24 flex flex-col items-center">
-            <h1 className="text-center text-4xl md:text-5xl font-bold text-future-dark mb-6">
-              Match With Your <span className="text-future-primary">Future</span>
+            <h1 className="text-center text-4xl md:text-5xl font-bold text-[#2F2F2F] mb-6">
+              Match With Your <span className="text-[#9F262A]">Future</span>
             </h1>
-            <p className="text-center text-xl text-muted-foreground max-w-2xl mb-12">
+            <p className="text-center text-xl text-[#6B7280] max-w-2xl mb-12">
               Discover your perfect university and career path with our 
               AI-powered guidance platform for Albanian high school students.
             </p>
@@ -46,41 +46,27 @@ const Index = () => {
             />
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl w-full mt-8">
-              <Card className="card-hover">
-                <CardContent className="pt-6">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-12 h-12 bg-future-light rounded-full flex items-center justify-center mb-4">
-                      <span className="text-future-primary text-xl font-bold">1</span>
+              {[1, 2, 3].map((num, index) => (
+                <Card key={num} className="card-hover">
+                  <CardContent className="pt-6">
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-12 h-12 bg-[#FAF8F6] rounded-full flex items-center justify-center mb-4">
+                        <span className="text-[#9F262A] text-xl font-bold">{num}</span>
+                      </div>
+                      <h3 className="text-lg font-semibold mb-2">
+                        {num === 1 && 'Take Fun Quizzes'}
+                        {num === 2 && 'Get Matched'}
+                        {num === 3 && 'Explore Paths'}
+                      </h3>
+                      <p className="text-[#6B7280]">
+                        {num === 1 && 'Discover your personality type, interests, and talents through interactive quizzes.'}
+                        {num === 2 && 'Our AI matches you with universities and careers that fit your unique profile.'}
+                        {num === 3 && 'Visualize your future with detailed career pathways and university programs.'}
+                      </p>
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">Take Fun Quizzes</h3>
-                    <p className="text-muted-foreground">Discover your personality type, interests, and talents through interactive quizzes.</p>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="card-hover">
-                <CardContent className="pt-6">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-12 h-12 bg-future-light rounded-full flex items-center justify-center mb-4">
-                      <span className="text-future-primary text-xl font-bold">2</span>
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">Get Matched</h3>
-                    <p className="text-muted-foreground">Our AI matches you with universities and careers that fit your unique profile.</p>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="card-hover">
-                <CardContent className="pt-6">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-12 h-12 bg-future-light rounded-full flex items-center justify-center mb-4">
-                      <span className="text-future-primary text-xl font-bold">3</span>
-                    </div>
-                    <h3 className="text-lg font-semibold mb-2">Explore Paths</h3>
-                    <p className="text-muted-foreground">Visualize your future with detailed career pathways and university programs.</p>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         )}
@@ -111,7 +97,7 @@ const Index = () => {
                     </Badge>
                   </div>
                   
-                  <p className="text-muted-foreground mb-4">{personalityResult.description}</p>
+                  <p className="text-[#6B7280] mb-4">{personalityResult.description}</p>
                   
                   <div className="space-y-3">
                     <div>
@@ -129,7 +115,7 @@ const Index = () => {
                       <h4 className="font-semibold">Suggested Fields:</h4>
                       <div className="flex flex-wrap gap-2 mt-1">
                         {personalityResult.suggestedFields.map(field => (
-                          <Badge key={field} variant="outline" className="bg-future-light text-future-tertiary border-0">
+                          <Badge key={field} variant="outline" className="bg-[#FAF8F6] text-[#D86D70] border-0">
                             {field}
                           </Badge>
                         ))}
@@ -141,17 +127,17 @@ const Index = () => {
             </div>
             
             <div className="flex justify-center mb-6">
-              <div className="inline-flex rounded-lg border border-border p-1">
+              <div className="inline-flex rounded-lg border border-[#E5E7EB] p-1">
                 <Button
                   variant={activeTab === 'universities' ? 'default' : 'ghost'}
-                  className={activeTab === 'universities' ? 'bg-future-primary hover:bg-future-tertiary' : ''}
+                  className={activeTab === 'universities' ? 'bg-[#9F262A] hover:bg-[#D86D70]' : ''}
                   onClick={() => setActiveTab('universities')}
                 >
                   Universities
                 </Button>
                 <Button
                   variant={activeTab === 'careers' ? 'default' : 'ghost'}
-                  className={activeTab === 'careers' ? 'bg-future-primary hover:bg-future-tertiary' : ''}
+                  className={activeTab === 'careers' ? 'bg-[#9F262A] hover:bg-[#D86D70]' : ''}
                   onClick={() => setActiveTab('careers')}
                 >
                   Career Paths
@@ -174,27 +160,31 @@ const Index = () => {
         )}
       </main>
       
-      <footer className="bg-future-dark text-white py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <span className="font-bold text-xl">
-                Match<span className="text-future-primary">Future</span>
-              </span>
-              <p className="text-sm text-gray-400 mt-1">
-                Guiding Albanian students to their perfect future
-              </p>
+      
+        <footer className="bg-[#2F2F2F] text-white py-6">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-center gap-4">
+              
+              {/* Logo + Brand */}
+              <div className="flex items-center gap-2">
+                <img src={logo} alt="UMatch Logo" className="h-8 w-auto" />
+              </div>
+
+              {/* Navigation Links */}
+              <div className="flex flex-wrap justify-center gap-6 text-sm">
+                <a href="#" className="text-[#B0B0B0] hover:text-white transition">About Us</a>
+                <a href="#" className="text-[#B0B0B0] hover:text-white transition">Universities</a>
+                <a href="#" className="text-[#B0B0B0] hover:text-white transition">Careers</a>
+                <a href="#" className="text-[#B0B0B0] hover:text-white transition">Contact</a>
+              </div>
             </div>
-            
-            <div className="flex flex-wrap gap-6 justify-center">
-              <a href="#" className="text-sm text-gray-400 hover:text-white">About Us</a>
-              <a href="#" className="text-sm text-gray-400 hover:text-white">Universities</a>
-              <a href="#" className="text-sm text-gray-400 hover:text-white">Careers</a>
-              <a href="#" className="text-sm text-gray-400 hover:text-white">Contact</a>
+
+            <div className="mt-4 text-center text-xs text-[#888]">
+              © {new Date().getFullYear()} UMatch. All rights reserved.
             </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+
     </div>
   );
 };
