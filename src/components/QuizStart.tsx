@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/components/ui/sonner";
+import myVideo from "../assets/home/waving.mp4";
 
 type QuizStartProps = {
   isOpen: boolean;
@@ -61,16 +62,47 @@ const QuizStart: React.FC<QuizStartProps> = ({ isOpen, onClose }) => {
         </DialogHeader>
 
         <div className="flex flex-col items-center py-4">
-          <div className="w-24 h-24 mb-4 rounded-full border border-[#D86D70] overflow-hidden shadow-sm">
+          {/* <div className="w-24 h-24 mb-4 rounded-full border border-[#D86D70] overflow-hidden shadow-sm">
             <img
-              src="https://api.dicebear.com/7.x/adventurer/svg?seed=Maya&hair=short16&hairColor=d2c3a4,80523b,c79282,dbd7d2&eyes=variant15&mouth=variant20"
+              src={}
               alt="Avatar Guide"
               className="w-full h-full object-cover"
             />
-          </div>
+          </div> */}
+           <div className="w-48 md:w-60 h-60 mb-6 relative animate-float">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 240 240"
+                    preserveAspectRatio="xMidYMid meet"
+                    className="absolute top-0 left-0 z-10"
+                  >
+                    <defs>
+                      <clipPath id="bottomClip" clipPathUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width="240" height="120" />
+                        <circle cx="120" cy="120" r="120" />
+                      </clipPath>
+                    </defs>
+                    <foreignObject width="240" height="340" clipPath="url(#bottomClip)">
+                      <div
+                        xmlns="http://www.w3.org/1999/xhtml"
+                        className="w-full h-full"
+                      >
+                        <video
+                          src={myVideo}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </foreignObject>
+                  </svg>
+                </div>
 
           <p className="text-center text-[#2F2F2F] mb-6 px-2">
-            Hi there! I'm Maya, your guide. Ready to discover your perfect university and career path? Start with a quick personality quiz or explore our interactive tools!
+            Hi there! I'm Bekim the Bear, your guide. Discover your perfect university match.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-2 w-full justify-center">
@@ -87,12 +119,12 @@ const QuizStart: React.FC<QuizStartProps> = ({ isOpen, onClose }) => {
             >
               Start My Journey
             </Button>
-            <Button
+            {/* <Button
               onClick={handleExploreFeatures}
               className="bg-[#4C5A72] hover:bg-[#2F2F2F] text-white"
             >
               Explore Career Tools
-            </Button>
+            </Button> */}
           </div>
         </div>
       </DialogContent>
