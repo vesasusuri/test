@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '@/components/Header';
+import Photos from '@/components/Photos';
 import Avatar from '@/components/Avatar';
 import PersonalityQuiz, { PersonalityResult } from '@/components/PersonalityQuiz';
 import UniversityMatch from '@/components/UniversityMatch';
@@ -8,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import logo from '../assets/navbar/umatch-logo.png';
+import BekimFeatures from '../components/BekimFeatures';
 import logowhite from '../assets/navbar/UMatch-white.png';
 
 enum Step {
@@ -29,148 +31,181 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-
+      
       <main className="flex-grow">
-        {currentStep === Step.WELCOME && (
-          <div className="container mx-auto px-4 py-12 md:py-24 flex flex-col items-center">
-            <h1 className="text-center text-4xl md:text-5xl font-bold text-[#2F2F2F] mb-6">
-              Match With Your <span className="text-[#9F262A]">Future</span>
-            </h1>
-            <p className="text-center text-xl text-[#6B7280] max-w-2xl mb-12">
-              Discover your perfect university and career path with our
-              AI-powered guidance platform for Albanian high school students.
-            </p>
+  {currentStep === Step.WELCOME && (
+    <div className="container mx-auto px-4 py-12 md:py-24 flex flex-col items-center">
+      <h1 className="text-center text-4xl md:text-5xl font-bold text-[#2F2F2F] mb-6">
+        Match With Your <span className="text-[#9F262A]">Future</span>
+      </h1>
+      <p className="text-center text-xl text-[#6B7280] max-w-2xl mb-12">
+        Discover your perfect university and career path with our
+        AI-powered guidance platform for Albanian high school students.
+      </p>
 
-            <Avatar onContinue={() => setCurrentStep(Step.QUIZ)} className="mb-12" />
+      <Avatar onContinue={() => setCurrentStep(Step.QUIZ)} className="mb-12" />
+      <div className="w-full max-w-4xl bg-[#FAF8F6] border border-[#D86D70] rounded-xl py-4 px-6 shadow-lg mt-10">
+        <h2 className="text-center text-lg font-semibold text-[#2F2F2F] mb-1">
+          Upload Academic Records
+        </h2>
+        <p className="text-center text-sm text-[#4C5A72] mb-4">
+          Drop your academic files or choose manually to enhance your match results
+        </p>
 
-            {/* How It Works Section */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl w-full mt-4">
-              {[1, 2, 3].map((num) => (
-                <Card
-                  key={num}
-                  className="transition-transform duration-300 hover:scale-105 hover:shadow-lg border border-gray-200 rounded-xl"
-                >
-                  <CardContent className="p-6">
-                    <div className="flex flex-col items-center text-center">
-                      <div className="w-12 h-12 bg-[#FAF8F6] rounded-full flex items-center justify-center mb-4 shadow-sm">
-                        <span className="text-[#9F262A] text-xl font-bold">{num}</span>
-                      </div>
-                      <h3 className="text-xl font-semibold mb-3 text-gray-900">
-                        {num === 1 && 'Take Fun Quizzes'}
-                        {num === 2 && 'Get Matched'}
-                        {num === 3 && 'Explore Paths'}
-                      </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {num === 1 &&
-                          'Discover your personality type, interests, and talents through interactive quizzes.'}
-                        {num === 2 &&
-                          'Our AI matches you with universities and careers that fit your unique profile.'}
-                        {num === 3 &&
-                          'Visualize your future with detailed career pathways and university programs.'}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+        <div className="border-2 border-dashed border-[#D86D70] rounded-md p-4 bg-white hover:bg-[#FFF5F5] transition flex flex-col md:flex-row justify-center items-center gap-2 h-32">
+          <svg className="w-8 h-8 text-[#9F262A]" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M16.88 9.94a1.5 1.5 0 00-2.12 0L11 13.71V3.5a1.5 1.5 0 00-3 0v10.21l-3.76-3.77a1.5 1.5 0 10-2.12 2.12l6.5 6.5a1.5 1.5 0 002.12 0l6.5-6.5a1.5 1.5 0 000-2.12z" />
+          </svg>
+          <div className="flex flex-col items-center">
+            <label
+              htmlFor="academic-upload"
+              className="cursor-pointer font-medium text-[#9F262A] border border-[#D86D70] px-4 py-2 rounded-md hover:bg-[#D86D70] hover:text-white transition"
+            >
+              Choose Files
+            </label>
+            <p className="text-xs text-[#4C5A72] mt-1">PDF, JPG, PNG up to 10MB</p>
+            <input
+              id="academic-upload"
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png"
+              className="hidden"
+            />
           </div>
-        )}
-
-        {currentStep === Step.QUIZ && (
-          <div id="quiz" className="container mx-auto px-4 py-8">
-            <PersonalityQuiz onComplete={handleQuizComplete} />
-          </div>
-        )}
-
-        {currentStep === Step.RESULTS && personalityResult && (
-          <div className="container mx-auto px-4 py-8">
-            {/* Personality Summary */}
-            <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
-              <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-                <div className="avatar-container w-24 h-24 shrink-0">
-                  <img
-                    src={`https://api.dicebear.com/7.x/bottts/svg?seed=${personalityResult.type}`}
-                    alt="Personality Avatar"
-                    className="w-full h-full object-cover"
-                  />
+        </div>
+      </div>
+      <br /><br /><br />
+      <BekimFeatures/>
+      <br /><br /><br />
+      {/* How It Works Section */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl w-full mt-4">
+        {[1, 2, 3].map((num) => (
+          <Card
+            key={num}
+            className="transition-transform duration-300 hover:scale-105 hover:shadow-lg border border-gray-200 rounded-xl"
+          >
+            <CardContent className="p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="w-12 h-12 bg-[#FAF8F6] rounded-full flex items-center justify-center mb-4 shadow-sm">
+                  <span className="text-[#9F262A] text-xl font-bold">{num}</span>
                 </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900">
+                  {num === 1 && 'Take Fun Quizzes'}
+                  {num === 2 && 'Get Matched'}
+                  {num === 3 && 'Explore Paths'}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {num === 1 &&
+                    'Discover your personality type, interests, and talents through interactive quizzes.'}
+                  {num === 2 &&
+                    'Our AI matches you with universities and careers that fit your unique profile.'}
+                  {num === 3 &&
+                    'Visualize your future with detailed career pathways and university programs.'}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  )}
 
-                <div>
-                  <div className="flex flex-wrap items-center gap-3 mb-2">
-                    <h2 className="text-2xl font-bold">{personalityResult.type}</h2>
-                    <Badge className="badge-personality">Personality Type</Badge>
-                  </div>
+  {currentStep === Step.QUIZ && (
+    <div id="quiz" className="container mx-auto px-4 py-8">
+      <PersonalityQuiz onComplete={handleQuizComplete} />
+    </div>
+  )}
 
-                  <p className="text-[#6B7280] mb-4">{personalityResult.description}</p>
+  {currentStep === Step.RESULTS && personalityResult && (
+    <div className="container mx-auto px-4 py-8">
+      {/* Personality Summary */}
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+          <div className="avatar-container w-24 h-24 shrink-0">
+            <img
+              src={`https://api.dicebear.com/7.x/bottts/svg?seed=${personalityResult.type}`}
+              alt="Personality Avatar"
+              className="w-full h-full object-cover"
+            />
+          </div>
 
-                  <div className="space-y-3">
-                    <div>
-                      <h4 className="font-semibold">Your Strengths:</h4>
-                      <div className="flex flex-wrap gap-2 mt-1">
-                        {personalityResult.strengths.map((strength) => (
-                          <Badge key={strength} variant="outline">
-                            {strength}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
+          <div>
+            <div className="flex flex-wrap items-center gap-3 mb-2">
+              <h2 className="text-2xl font-bold">{personalityResult.type}</h2>
+              <Badge className="badge-personality">Personality Type</Badge>
+            </div>
 
-                    <div>
-                      <h4 className="font-semibold">Suggested Fields:</h4>
-                      <div className="flex flex-wrap gap-2 mt-1">
-                        {personalityResult.suggestedFields.map((field) => (
-                          <Badge
-                            key={field}
-                            variant="outline"
-                            className="bg-[#FAF8F6] text-[#D86D70] border-0"
-                          >
-                            {field}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+            <p className="text-[#6B7280] mb-4">{personalityResult.description}</p>
+
+            <div className="space-y-3">
+              <div>
+                <h4 className="font-semibold">Your Strengths:</h4>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {personalityResult.strengths.map((strength) => (
+                    <Badge key={strength} variant="outline">
+                      {strength}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-semibold">Suggested Fields:</h4>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {personalityResult.suggestedFields.map((field) => (
+                    <Badge
+                      key={field}
+                      variant="outline"
+                      className="bg-[#FAF8F6] text-[#D86D70] border-0"
+                    >
+                      {field}
+                    </Badge>
+                  ))}
                 </div>
               </div>
             </div>
-
-            {/* Toggle Tabs */}
-            <div className="flex justify-center mb-6">
-              <div className="inline-flex rounded-lg border border-[#E5E7EB] p-1">
-                <Button
-                  variant={activeTab === 'universities' ? 'default' : 'ghost'}
-                  className={activeTab === 'universities' ? 'bg-[#9F262A] hover:bg-[#D86D70]' : ''}
-                  onClick={() => setActiveTab('universities')}
-                >
-                  Universities
-                </Button>
-                <Button
-                  variant={activeTab === 'careers' ? 'default' : 'ghost'}
-                  className={activeTab === 'careers' ? 'bg-[#9F262A] hover:bg-[#D86D70]' : ''}
-                  onClick={() => setActiveTab('careers')}
-                >
-                  Career Paths
-                </Button>
-              </div>
-            </div>
-
-            {/* Results Display */}
-            {activeTab === 'universities' ? (
-              <UniversityMatch personalityResult={personalityResult} />
-            ) : (
-              <CareerPathway personalityResult={personalityResult} />
-            )}
-
-            <div className="text-center mt-12 mb-6">
-              <Button onClick={() => setCurrentStep(Step.WELCOME)} variant="outline">
-                Return to Start
-              </Button>
-            </div>
           </div>
-        )}
-      </main>
+        </div>
+      </div>
 
-      <footer className="bg-[#9F262A] text-white py-12 mt-16">
+      {/* Toggle Tabs */}
+      <div className="flex justify-center mb-6">
+        <div className="inline-flex rounded-lg border border-[#E5E7EB] p-1">
+          <Button
+            variant={activeTab === 'universities' ? 'default' : 'ghost'}
+            className={activeTab === 'universities' ? 'bg-[#9F262A] hover:bg-[#D86D70]' : ''}
+            onClick={() => setActiveTab('universities')}
+          >
+            Universities
+          </Button>
+          <Button
+            variant={activeTab === 'careers' ? 'default' : 'ghost'}
+            className={activeTab === 'careers' ? 'bg-[#9F262A] hover:bg-[#D86D70]' : ''}
+            onClick={() => setActiveTab('careers')}
+          >
+            Career Paths
+          </Button>
+        </div>
+      </div>
+
+      {/* Results Display */}
+      {activeTab === 'universities' ? (
+        <UniversityMatch personalityResult={personalityResult} />
+      ) : (
+        <CareerPathway personalityResult={personalityResult} />
+      )}
+
+      <div className="text-center mt-12 mb-6">
+        <Button onClick={() => setCurrentStep(Step.WELCOME)} variant="outline">
+          Return to Start
+        </Button>
+      </div>
+    </div>
+  )}
+</main>
+
+<Photos/>
+      
+<footer className="bg-[#9F262A] text-white py-12 mt-16">
         <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* 1. Brand Overview */}
           <div className="space-y-4">
@@ -240,10 +275,11 @@ const Index = () => {
 
             </div>
         {/* Divider */}
-        <div className="border-t border-[#333] mt-10 pt-6 text-center text-xs text-[#888]">
+        <div className="border-t border-[#333] mt-10 pt-6 text-center text-xs text-[#fff]">
           © {new Date().getFullYear()} UMatch. All rights reserved.
         </div>
       </footer>
+
 
     </div>
   );
